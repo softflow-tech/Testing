@@ -34,6 +34,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS'))
 
+AUTH_USER_MODEL = 'chati.User'
 
 # Application definition
 
@@ -45,8 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chati.apps.CenterConfig',
+    'chati.apps.ChatiConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chatizone.wsgi.application'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:9000"
+]
 
 
 # Database
