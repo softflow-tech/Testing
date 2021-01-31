@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Group, Membership, UserDetails, User
+from django.contrib.auth.models import User
+
+from .models import Group, Membership, Userdetail
 from rest_framework.authtoken.models import Token
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -10,7 +12,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','password','email','first_name','last_name']
+        fields = ['id','username','password']
         extra_kwargs={'password':{'write_only':True, 'required':True}}
     
     def create(self,validate_data):
@@ -18,11 +20,11 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         return user
 
-class UserDetailsSerializer(serializers.ModelSerializer):
+class UserdetailSerializer(serializers.ModelSerializer):
 
     class Meta:
-        fields = ('id', 'user', 'birth_date', 'friends')
-        model = UserDetails
+        fields = ('user_id', 'email', 'first_name','last_name')
+        model = Userdetail
 
 class MembershipSerializer(serializers.ModelSerializer):
     class Meta:
